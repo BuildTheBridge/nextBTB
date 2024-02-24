@@ -1,4 +1,29 @@
 * {
   margin: 0;
   padding: 0;
+  word-break: keep-all;
+  font-family: SCDream;
+  box-sizing: border-box;
+}
+
+@font-face {
+  font-family: "SCDream";
+  font-weight: 200;
+  src: url("/font/SCDream4.otf") format("truetype");
+}
+
+@font-face {
+  font-family: "SCDream6";
+  font-weight: 200;
+  src: url("/font/SCDream6.otf") format("truetype");
+}
+
+html,
+body,
+main {
+  width: 100%;
+  min-height: -webkit-fill-available;
+  /* overflow-x: hidden; */
+  background-color: white;
+  font-size: 16px;
 }

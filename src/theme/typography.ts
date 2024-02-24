@@ -1,9 +1,3 @@
-import { Noto_Sans } from "next/font/google";
-export const notoSans = Noto_Sans({
-  weight: ["300", "400", "500", "600", "700", "800"],
-  subsets: ["latin"],
-  display: "swap",
-});
 const responsiveFontSizes = ({ md, lH }: { md: number; lH: number }) => {
   return {
     // "@media (min-width:600px)": {
@@ -19,7 +13,7 @@ const responsiveFontSizes = ({ md, lH }: { md: number; lH: number }) => {
   };
 };
 const typography = {
-  fontFamily: notoSans.style.fontFamily,
+  fontFamily: "SCDream",
   htmlFontSize: 16,
   fontSize: 16,
   fontWeightRegular: 400,

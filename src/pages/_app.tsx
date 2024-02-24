@@ -49,7 +49,7 @@ export default function BtbApp(props: AppPropsWithLayout) {
           </Head>
           <main>
             {getLayout(<Component {...pageProps} />)}
-            <ReactQueryDevtools initialIsOpen={false} position={"left"} />
+            {/* <ReactQueryDevtools initialIsOpen={false} position={"left"} /> */}
             <ToastST
               position="top-right"
               hideProgressBar

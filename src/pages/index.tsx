@@ -1,7 +1,7 @@
 import { ReactElement } from "react";
 
 import SEO from "@/SEO";
-import HomeContainer from "@/components/Home";
+import HomeContainer from "@/container/Home";
 import BaseLayout from "@/components/Layout/BaseLayout";
 
 export default function Home() {
