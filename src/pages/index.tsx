@@ -11,7 +11,7 @@ export default function Home() {
 Home.getLayout = function getLayout(page: ReactElement) {
   return (
     <BaseLayout>
-      <SEO />
+      <SEO description="buildthebridge" />
       {page}
     </BaseLayout>
   );

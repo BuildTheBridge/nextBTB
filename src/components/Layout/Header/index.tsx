@@ -1,21 +1,6 @@
-import {
-  AppBar,
-  Avatar,
-  Box,
-  Button,
-  Container,
-  IconButton,
-  Menu,
-  MenuItem,
-  Toolbar,
-  Tooltip,
-  Typography,
-  styled,
-} from "@mui/material";
-import React from "react";
-import MenuIcon from "@mui/icons-material/Menu";
-import AdbIcon from "@mui/icons-material/Adb";
+import { AppBar, Container } from "@mui/material";
 import Image from "next/image";
+import React from "react";
 
 const pages = ["Products", "Pricing", "Blog"];
 const settings = ["Profile", "Account", "Dashboard", "Logout"];
@@ -48,9 +33,9 @@ export default function Header() {
       sx={{
         width: "100%",
         height: "60px",
-        backgroundColor: "transparent",
         boxShadow: "none",
         alignItems: "center",
+        backgroundColor: "transparent",
       }}
     >
       <Container
@@ -74,11 +59,3 @@ export default function Header() {
     </AppBar>
   );
 }
-
-const Wrapper = styled(Box)(() => {
-  return {
-    zIndex: 1,
-    width: "100%",
-    position: "absolute",
-  };
-});

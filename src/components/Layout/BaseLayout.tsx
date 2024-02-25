@@ -1,12 +1,14 @@
 import { loadingState } from "@/atoms/loadingState";
 import { Box, styled } from "@mui/material";
-import { Router, useRouter } from "next/router";
-import React, { useEffect, useState } from "react";
+import { Router } from "next/router";
+import React, { useEffect } from "react";
 import { useRecoilState } from "recoil";
 
+import ContentLayout from "./ContentLayout";
 import Footer from "./Footer";
-import Header from "./Header";
+import HeaderTest from "./HeaderTest";
 import Loading from "./Loading";
+import { usePathname } from "next/navigation";
 
 interface IProps {
   children: React.ReactNode;
@@ -19,15 +21,7 @@ interface IPath {
 export default function BaseLayout({ children }: IProps) {
   // 로딩 관련 global atom
   const [loading, setLoading] = useRecoilState(loadingState);
-
-  const [path, setPath] = useState("");
-
-  const router = useRouter();
-
-  useEffect(() => {
-    setPath(router.pathname);
-  }, [router.pathname]);
-
+  const path = usePathname();
   // 로딩상태 체크 useEffect
   useEffect(() => {
     const startLoading = () => {
@@ -50,18 +44,26 @@ export default function BaseLayout({ children }: IProps) {
 
   return (
     <Box>
-      <Header />
-      <BoxSTchildren path={path}>{children}</BoxSTchildren>
+      {/* <Header /> */}
+      <HeaderTest />
+      <BoxSTchildren>
+        {path === "/" ? children : <ContentLayout>{children}</ContentLayout>}
+      </BoxSTchildren>
       <Footer />
       <Loading loading={loading} />
     </Box>
   );
 }
 
-const BoxSTchildren = styled(Box)(({ path }: IPath) => {
+const BoxSTchildren = styled(Box)(() => {
   return {
-    // paddingTop: path === "/" ? "" : "60px",
+    gap: "80px",
     width: "100%",
+    display: "flex",
     minHeight: "100vh",
+    alignItems: "center",
+    flexDirection: "column",
+    justifyContent: "center",
+    padding: "60px 20px 0px 20px",
   };
 });
