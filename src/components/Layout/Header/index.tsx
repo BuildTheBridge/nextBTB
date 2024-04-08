@@ -1,84 +1,123 @@
 import { Box, styled, Typography } from "@mui/material";
-import { usePathname } from "next/navigation";
 import Image from "next/image";
+import { MouseEvent, useState } from "react";
+import { usePathname } from "next/navigation";
+import { useRouter } from "next/router";
 
 import useScroll from "@/lib/clients/hooks/useScroll";
-
+import useSize from "@/lib/clients/hooks/useSize";
 import BRIDGE from "@/public/images/icons/bridge.png";
-import HAMBERGER from "@/public/images/icons/menu.png";
+import { MAIN_POPOVER_MENUS } from "@/config";
 
-const MenuList = [{ text: "Home" }, { text: "Contact" }];
+import HeaderPopover from "./components/HeaderPopover";
 
 interface IProps {
+  path: string;
   onClick: (value: boolean) => void;
 }
 
 export default function Header(props: IProps) {
-  const { onClick } = props;
+  const { onClick, path } = props;
   const { scroll } = useScroll();
+  const { width } = useSize();
+  const router = useRouter();
 
-  const path = usePathname();
+  const [anchorEl, setAnchorEl] = useState<HTMLButtonElement | null>(null);
+
+  const onClickLoginBtn = (event: MouseEvent<HTMLButtonElement>) => {
+    if (width < 600 && path === "/") {
+      setAnchorEl(event.currentTarget);
+    } else if (path !== "/") {
+      onClick(true);
+    } else {
+      console.log("걍로그인");
+    }
+  };
+
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
+
+  const open = Boolean(anchorEl);
+  const id = open ? "simple-popover" : undefined;
+
+  const testRouter = () => {
+    router.push("/academy");
+  };
 
   return (
-    <Wrapper scroll={scroll}>
+    <Wrapper scroll={scroll} path={path}>
       <Content>
         {/* 헤더 로고 img */}
         <Image
-          src="/images/logos/white-hr.png"
+          src={
+            path === "/"
+              ? `/images/logos/white-hr.png`
+              : `/images/logos/blue-hr.png`
+          }
           alt="whiteLogo"
           width={180}
           height={40}
+          priority
+          onClick={() => router.push("/")}
         />
 
         {/* 헤더 메뉴 */}
         <Menus>
-          <TextInMenu>
-            {MenuList.map((item, index) => {
-              return (
-                <Typography
-                  variant="subtitle3_long"
-                  color="#fff"
-                  key={index}
-                  sx={{ fontWeight: "bold" }}
-                >
-                  {item.text}
-                </Typography>
-              );
-            })}
-          </TextInMenu>
-          <LoginBtn src={BRIDGE} alt="loginbtn" width={42} height={42} />
-        </Menus>
-
-        {/* Home 화면이 아니고 헤더 sm 이하에서 햄버거 icon */}
-        {path !== "/" && (
-          <HambergerIcon
-            src={HAMBERGER}
-            alt="HAMBERGER"
-            width={24}
-            height={20}
-            onClick={() => {
-              if (onClick) onClick(true);
-            }}
+          {path === "/" && (
+            <TextInMenu>
+              {MAIN_POPOVER_MENUS.map((menu, index) => {
+                return (
+                  <Typography
+                    variant="subtitle3_long"
+                    color="#fff"
+                    key={index}
+                    sx={{ fontWeight: "bold" }}
+                    onClick={testRouter}
+                  >
+                    {menu.title}
+                  </Typography>
+                );
+              })}
+            </TextInMenu>
+          )}
+          <LoginBtn
+            src={BRIDGE}
+            aria-describedby={id}
+            alt="loginbtn"
+            width={42}
+            height={42}
+            onClick={(e: any) => onClickLoginBtn(e)}
           />
-        )}
+        </Menus>
       </Content>
+
+      <HeaderPopover
+        open={open}
+        id={id}
+        anchorEl={anchorEl}
+        path={path}
+        onClose={handleClose}
+      />
     </Wrapper>
   );
 }
 
-const Wrapper = styled(Box)<{ scroll: number }>(({ scroll }) => {
-  return {
-    zIndex: 2,
-    width: "100%",
-    height: "60px",
-    display: "flex",
-    position: "fixed",
-    alignItems: "center",
-    justifyContent: "center",
-    backgroundColor: "transparent",
-    backdropFilter: scroll > 0 ? "blur(30px)" : "",
-  };
-});
+const Wrapper = styled(Box)<{ scroll: number; path: string }>(
+  ({ scroll, path }) => {
+    return {
+      zIndex: 2,
+      width: "100%",
+      height: "60px",
+      display: "flex",
+      position: "fixed",
+      alignItems: "center",
+      justifyContent: "center",
+      backgroundColor: path === "/" ? "transparent" : "#fafafa",
+      backdropFilter: scroll > 0 ? "blur(30px)" : "",
+    };
+  }
+);
 
 const Content = styled(Box)(() => {
   return {
@@ -100,19 +139,12 @@ const Menus = styled(Box)(({ theme }) => {
   };
 });
 
-const HambergerIcon = styled(Image)(({ theme }) => {
-  return {
-    [theme.breakpoints.up("sm")]: {
-      display: "none",
-    },
-  };
-});
-
 const LoginBtn = styled(Image)(() => {
   return {
     width: "42px",
     height: "42px",
     padding: "2px",
+    cursor: "pointer",
     borderRadius: "100%",
     backgroundColor: "#fafafa",
   };
@@ -122,6 +154,7 @@ const TextInMenu = styled(Box)(({ theme }) => {
   return {
     gap: "24px",
     display: "flex",
+    cursor: "pointer",
     alignItems: "center",
     [theme.breakpoints.down("sm")]: {
       display: "none",

@@ -17,4 +17,16 @@ const PROFILE_MENUS = [
   { title: "회원정보 관리", url: "/my/info" },
 ];
 
-export { MENUS, PROFILE_MENUS };
+const MAIN_POPOVER_MENUS = [
+  { title: "Home" },
+  { title: "Contact" },
+  { title: "goAca" },
+];
+const POPOVER_MENUS = [
+  { title: "로그아웃" },
+  { title: "기타등등" },
+  { title: "기타등등" },
+  { title: "기타등등" },
+];
+
+export { MENUS, PROFILE_MENUS, MAIN_POPOVER_MENUS, POPOVER_MENUS };

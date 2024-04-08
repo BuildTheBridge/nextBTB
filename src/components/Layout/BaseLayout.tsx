@@ -1,22 +1,14 @@
-import { loadingState } from "@/atoms/loadingState";
 import { Box, styled } from "@mui/material";
-import { Router } from "next/router";
-import React, { useEffect, useState } from "react";
-import { useRecoilState } from "recoil";
+import React, { useState } from "react";
 
 import { usePathname } from "next/navigation";
 import ContentLayout from "./ContentLayout";
 import Footer from "./Footer";
 import Header from "./Header";
-import Loading from "./Loading";
 import Sidebar from "./Sidebar";
 
 interface IProps {
   children: React.ReactNode;
-}
-
-interface IPath {
-  path: string;
 }
 
 export default function BaseLayout({ children }: IProps) {
@@ -46,34 +38,16 @@ export default function BaseLayout({ children }: IProps) {
   const [openSidebar, setOpenSidebar] = useState(false);
 
   const toggleDrawer = (value: boolean) => {
-    console.log("cli");
-    // if (
-    //   event.type === "keydown" &&
-    //   ((event as KeyboardEvent).key === "Tab" ||
-    //     (event as KeyboardEvent).key === "Shift")
-    // ) {
-    //   return;
-    // }
-    setOpenSidebar(value);
-  };
-
-  const test = (value: any) => {
     setOpenSidebar(value);
   };
 
   return (
     <Box>
-      <Header
-        onClick={(value: boolean) => {
-          toggleDrawer(value);
-        }}
-      />
-      {/* <HeaderTest /> */}
+      <Header onClick={(value: boolean) => toggleDrawer(value)} path={path} />
       <BoxSTchildren path={path}>
         {path === "/" ? children : <ContentLayout>{children}</ContentLayout>}
       </BoxSTchildren>
       <Footer />
-
       <Sidebar
         onClick={(value: boolean) => toggleDrawer(value)}
         open={openSidebar}

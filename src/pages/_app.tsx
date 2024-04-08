@@ -41,10 +41,14 @@ export default function BtbApp(props: AppPropsWithLayout) {
       <QueryClientProvider client={queryClient}>
         <ThemeProvider theme={theme}>
           <Head>
-            <meta
+            {/* <meta
               name="viewport"
               content="initial-scale=1, width=divice-width"
-            />
+            /> */}
+            <meta
+              name="viewport"
+              content="width=device-width, height=device-height, initial-scale=1, user-scalable=yes"
+            ></meta>
             {/* 추가폰트 */}
           </Head>
           <main>
