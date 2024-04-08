@@ -1,15 +1,40 @@
 import { Box, styled } from "@mui/material";
-import Image from "next/image";
 
 import ContactUs from "./components/ContactUs";
 import LeftText from "./components/LeftText";
+import MainTyped from "./components/MainTyped";
+import { getMembers } from "@/server/clients/MemberApiClient";
+import { useQuery } from "@tanstack/react-query";
 
 export default function HomeContainer() {
+  const { data: memberData } = useQuery({
+    queryKey: ["members"],
+    queryFn: async () => {
+      const res = await getMembers({ re: "good" });
+      console.log(res);
+
+      return res;
+    },
+  });
+
+  console.log(memberData);
+
   return (
     <Wrapper>
       {/* IMG */}
-      <Box sx={{ width: "100%", minHeight: "100vh" }}>
-        <Image src="/assets/backGround/main-bg.png" alt="main-bg" fill />
+      <Box
+        sx={{
+          width: "100%",
+          display: "flex",
+          minHeight: "100vh",
+          position: "relative",
+          justifyContent: "center",
+          alignItems: "center",
+          background: 'url("/images/backGround/main-bg.png") no-repeat',
+        }}
+      >
+        <MainTyped />
+        <ImgBackground src="/images/backGround/main-bg.png" alt="main-bg" />
       </Box>
 
       <BoxSTcontent>
@@ -24,8 +49,8 @@ export default function HomeContainer() {
 
 const Wrapper = styled(Box)(() => {
   return {
+    width: "100%",
     display: "flex",
-    flexWrap: "wrap",
     alignItems: "center",
     flexDirection: "column",
     justifyContent: "center",
@@ -44,5 +69,13 @@ const BoxSTcontent = styled(Box)(({ theme }) => {
       flexDirection: "column",
       margin: "40px 0px 20px 0px",
     },
+  };
+});
+
+const ImgBackground = styled("img")(() => {
+  return {
+    width: "100%",
+    minHeight: "100vh",
+    objectFit: "cover",
   };
 });

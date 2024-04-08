@@ -1,6 +1,6 @@
 import { Box, Typography, styled } from "@mui/material";
 
-import useResponsive from "@/hooks/useResponsive";
+import useResponsive from "@/lib/clients/hooks/useResponsive";
 
 export default function Footer() {
   const isXs = useResponsive("down", "xs");

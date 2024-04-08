@@ -1,4 +1,4 @@
-import useKorPath from "@/hooks/usePathname";
+import useKorPath from "@/lib/clients/hooks/usePathname";
 import { Box, styled } from "@mui/material";
 import { ReactNode } from "react";
 import InputWithBtn from "./components/InputWithBtn";

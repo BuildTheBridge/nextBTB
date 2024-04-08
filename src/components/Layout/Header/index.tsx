@@ -1,61 +1,130 @@
-import { AppBar, Container } from "@mui/material";
+import { Box, styled, Typography } from "@mui/material";
+import { usePathname } from "next/navigation";
 import Image from "next/image";
-import React from "react";
 
-const pages = ["Products", "Pricing", "Blog"];
-const settings = ["Profile", "Account", "Dashboard", "Logout"];
+import useScroll from "@/lib/clients/hooks/useScroll";
 
-export default function Header() {
-  const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(
-    null
-  );
-  const [anchorElUser, setAnchorElUser] = React.useState<null | HTMLElement>(
-    null
-  );
+import BRIDGE from "@/public/images/icons/bridge.png";
+import HAMBERGER from "@/public/images/icons/menu.png";
 
-  const handleOpenNavMenu = (event: React.MouseEvent<HTMLElement>) => {
-    setAnchorElNav(event.currentTarget);
-  };
-  const handleOpenUserMenu = (event: React.MouseEvent<HTMLElement>) => {
-    setAnchorElUser(event.currentTarget);
-  };
+const MenuList = [{ text: "Home" }, { text: "Contact" }];
 
-  const handleCloseNavMenu = () => {
-    setAnchorElNav(null);
-  };
+interface IProps {
+  onClick: (value: boolean) => void;
+}
 
-  const handleCloseUserMenu = () => {
-    setAnchorElUser(null);
-  };
+export default function Header(props: IProps) {
+  const { onClick } = props;
+  const { scroll } = useScroll();
+
+  const path = usePathname();
+
   return (
-    <AppBar
-      position="fixed"
-      sx={{
-        width: "100%",
-        height: "60px",
-        boxShadow: "none",
-        alignItems: "center",
-        backgroundColor: "transparent",
-      }}
-    >
-      <Container
-        sx={{
-          width: "100%",
-          display: "flex",
-          alignItems: "center",
-          "&.MuiContainer-root": {
-            maxWidth: "960px",
-          },
-        }}
-        disableGutters
-      >
+    <Wrapper scroll={scroll}>
+      <Content>
+        {/* 헤더 로고 img */}
         <Image
-          src="/assets/logos/white_hr.png"
-          alt="test"
-          width={200}
-          height={60}
+          src="/images/logos/white-hr.png"
+          alt="whiteLogo"
+          width={180}
+          height={40}
         />
-      </Container>
-    </AppBar>
+
+        {/* 헤더 메뉴 */}
+        <Menus>
+          <TextInMenu>
+            {MenuList.map((item, index) => {
+              return (
+                <Typography
+                  variant="subtitle3_long"
+                  color="#fff"
+                  key={index}
+                  sx={{ fontWeight: "bold" }}
+                >
+                  {item.text}
+                </Typography>
+              );
+            })}
+          </TextInMenu>
+          <LoginBtn src={BRIDGE} alt="loginbtn" width={42} height={42} />
+        </Menus>
+
+        {/* Home 화면이 아니고 헤더 sm 이하에서 햄버거 icon */}
+        {path !== "/" && (
+          <HambergerIcon
+            src={HAMBERGER}
+            alt="HAMBERGER"
+            width={24}
+            height={20}
+            onClick={() => {
+              if (onClick) onClick(true);
+            }}
+          />
+        )}
+      </Content>
+    </Wrapper>
   );
 }
+
+const Wrapper = styled(Box)<{ scroll: number }>(({ scroll }) => {
+  return {
+    zIndex: 2,
+    width: "100%",
+    height: "60px",
+    display: "flex",
+    position: "fixed",
+    alignItems: "center",
+    justifyContent: "center",
+    backgroundColor: "transparent",
+    backdropFilter: scroll > 0 ? "blur(30px)" : "",
+  };
+});
+
+const Content = styled(Box)(() => {
+  return {
+    width: "100%",
+    display: "flex",
+    maxWidth: "960px",
+    alignItems: "center",
+    justifyContent: "space-between",
+    padding: "10px 24px",
+  };
+});
+
+const Menus = styled(Box)(({ theme }) => {
+  return {
+    gap: "160px",
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "space-between",
+  };
+});
+
+const HambergerIcon = styled(Image)(({ theme }) => {
+  return {
+    [theme.breakpoints.up("sm")]: {
+      display: "none",
+    },
+  };
+});
+
+const LoginBtn = styled(Image)(() => {
+  return {
+    width: "42px",
+    height: "42px",
+    padding: "2px",
+    borderRadius: "100%",
+    backgroundColor: "#fafafa",
+  };
+});
+
+const TextInMenu = styled(Box)(({ theme }) => {
+  return {
+    gap: "24px",
+    display: "flex",
+    alignItems: "center",
+    [theme.breakpoints.down("sm")]: {
+      display: "none",
+    },
+  };
+});

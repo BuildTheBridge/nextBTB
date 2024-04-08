@@ -30,5 +30,8 @@ const TextFieldST = styled(TextField)(() => {
     "& .MuiInputLabel-root": {
       fontSize: "14px",
     },
+    "& .MuiOutlinedInput-input": {
+      padding: "15px 0px",
+    },
   };
 });

@@ -14,7 +14,7 @@ export default function SEO(props: IProps) {
     <Head>
       <title>{title ? `빌더브릿지 | ${title}` : "빌더브릿지"}</title>
       <meta name="description" content={description || "빌더브릿지"} />
-      <link rel="icon" href="/assets/logos/blue.png" sizes="any" />
+      <link rel="icon" href="/images/logos/blue.png" sizes="any" />
       <meta name="viewport" content="initial-scale=1.0, width=device-width" />
       <meta property="og:title" content={title || "next"} />
       <meta property="og:type" content="website" />

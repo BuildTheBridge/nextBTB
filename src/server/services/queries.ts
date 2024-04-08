@@ -1,0 +1,1 @@
+export const SELECT_MEMBER = `SELECT * FROM BTB_MEMBER`;
