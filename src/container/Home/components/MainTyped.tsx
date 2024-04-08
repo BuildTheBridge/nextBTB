@@ -97,7 +97,12 @@ const ButtonST = styled(Button)(() => {
   return {
     width: "100%",
     maxWidth: "240px",
-    borderRadius: "12px",
+    borderRadius: "8px",
     backgroundColor: "#9fc3fe",
+    boxShadow: "none",
+    ":hover": {
+      boxShadow: "none",
+      backgroundColor: "#9fc3fe",
+    },
   };
 });

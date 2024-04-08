@@ -10,15 +10,34 @@ interface IProps {
   id: string | undefined;
   onClose: () => void;
   path: string;
+  onMoveToElement: () => void;
 }
 
 export default function HeaderPopover(props: IProps) {
-  const { open, anchorEl, id, onClose, path } = props;
+  const { open, anchorEl, id, onClose, path, onMoveToElement } = props;
+
+  const onClickMenu = (title: string) => {
+    if (title === "Home") {
+      window.scroll({
+        top: 0,
+        behavior: "smooth",
+      });
+      return;
+    }
+    if (title === "Contact") {
+      onMoveToElement();
+      return;
+    }
+  };
 
   const renderMenus = (path: string) => {
     if (path === "/") {
       return MAIN_POPOVER_MENUS.map((menu, idx) => {
-        return <Menus key={idx}>{menu.title}</Menus>;
+        return (
+          <Menus key={idx} onClick={() => onClickMenu(menu.title)}>
+            {menu.title}
+          </Menus>
+        );
       });
     }
     return POPOVER_MENUS.map((menu, idx) => {

@@ -37,6 +37,7 @@ const BoxSTleftText = styled(Box)(({ theme }) => {
     width: "100%",
     display: "flex",
     textAlign: "center",
+    padding: "0px 24px",
     alignItems: "center",
     flexDirection: "column",
     justifyContent: "center",

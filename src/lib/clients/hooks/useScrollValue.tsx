@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 
-export default function useScroll() {
+export default function useScrollValue() {
   const [scroll, setScroll] = useState(0);
   const [lastScroll, setLastScroll] = useState(0);
 

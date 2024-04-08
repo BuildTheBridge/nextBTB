@@ -6,6 +6,7 @@ import ContentLayout from "./ContentLayout";
 import Footer from "./Footer";
 import Header from "./Header";
 import Sidebar from "./Sidebar";
+import useMoveScroll from "@/lib/clients/hooks/useMoveScroll";
 
 interface IProps {
   children: React.ReactNode;
@@ -15,6 +16,7 @@ export default function BaseLayout({ children }: IProps) {
   // 로딩 관련 global atom
   // const [loading, setLoading] = useRecoilState(loadingState);
   const path = usePathname();
+
   // 로딩상태 체크 useEffect
   // useEffect(() => {
   //   const startLoading = () => {
@@ -35,6 +37,8 @@ export default function BaseLayout({ children }: IProps) {
   //   };
   // }, [setLoading]);
 
+  const { element, onMoveToElement } = useMoveScroll();
+
   const [openSidebar, setOpenSidebar] = useState(false);
 
   const toggleDrawer = (value: boolean) => {
@@ -43,11 +47,15 @@ export default function BaseLayout({ children }: IProps) {
 
   return (
     <Box>
-      <Header onClick={(value: boolean) => toggleDrawer(value)} path={path} />
+      <Header
+        onClick={(value: boolean) => toggleDrawer(value)}
+        path={path}
+        onMoveToElement={onMoveToElement}
+      />
       <BoxSTchildren path={path}>
         {path === "/" ? children : <ContentLayout>{children}</ContentLayout>}
       </BoxSTchildren>
-      <Footer />
+      <Footer element={element} />
       <Sidebar
         onClick={(value: boolean) => toggleDrawer(value)}
         open={openSidebar}

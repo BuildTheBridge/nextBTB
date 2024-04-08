@@ -5,19 +5,18 @@ import LeftText from "./components/LeftText";
 import MainTyped from "./components/MainTyped";
 import { getMembers } from "@/server/clients/MemberApiClient";
 import { useQuery } from "@tanstack/react-query";
+import useMoveScroll from "@/lib/clients/hooks/useMoveScroll";
 
 export default function HomeContainer() {
-  const { data: memberData } = useQuery({
-    queryKey: ["members"],
-    queryFn: async () => {
-      const res = await getMembers({ re: "good" });
-      console.log(res);
+  // const { data: memberData } = useQuery({
+  //   queryKey: ["members"],
+  //   queryFn: async () => {
+  //     const res = await getMembers({ re: "good" });
+  //     console.log(res);
 
-      return res;
-    },
-  });
-
-  console.log(memberData);
+  //     return res;
+  //   },
+  // });
 
   return (
     <Wrapper>

@@ -1,4 +1,4 @@
-import { ReactElement } from "react";
+import { ReactElement, cloneElement } from "react";
 
 import SEO from "@/SEO";
 import HomeContainer from "@/container/Home";

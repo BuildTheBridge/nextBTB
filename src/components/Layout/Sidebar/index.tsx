@@ -9,8 +9,13 @@ import {
   ListItemButton,
   ListItemIcon,
   ListItemText,
+  styled,
 } from "@mui/material";
+import Image from "next/image";
+import { useRouter } from "next/router";
 import { KeyboardEvent } from "react";
+
+import { MENUS } from "@/config";
 
 interface IProps {
   open: boolean;
@@ -19,6 +24,7 @@ interface IProps {
 
 export default function Sidebar(props: IProps) {
   const { open, onClick } = props;
+  const router = useRouter();
 
   const toggleDrawer = (event: KeyboardEvent | MouseEvent) => {
     if (
@@ -31,8 +37,7 @@ export default function Sidebar(props: IProps) {
   };
 
   const list = () => (
-    <Box
-      sx={{ width: 250 }}
+    <ListWrapper
       role="presentation"
       onClick={() => {
         if (onclick) onClick(false);
@@ -42,45 +47,94 @@ export default function Sidebar(props: IProps) {
         onClick(false);
       }}
     >
-      <List>
-        {["Inbox", "Starred", "Send email", "Drafts"].map((text, index) => (
-          <ListItem key={text} disablePadding>
-            <ListItemButton>
-              <ListItemIcon>
-                {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-              </ListItemIcon>
-              <ListItemText primary={text} />
-            </ListItemButton>
-          </ListItem>
-        ))}
-      </List>
+      <ImageWrapper>
+        <Image
+          src={`/images/logos/blue-hr.png`}
+          alt="whiteLogo"
+          width={180}
+          height={40}
+          priority
+          onClick={() => router.push("/")}
+        />
+      </ImageWrapper>
       <Divider />
-      <List>
-        {["All mail", "Trash", "Spam"].map((text, index) => (
-          <ListItem key={text} disablePadding>
-            <ListItemButton>
-              <ListItemIcon>
-                {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-              </ListItemIcon>
-              <ListItemText primary={text} />
-            </ListItemButton>
+      <ListST>
+        {MENUS.map((menu, index) => (
+          <ListItem key={index} disablePadding>
+            <ListItemButtonST onClick={() => router.push(menu.path)}>
+              <Image
+                src={menu.imgUrl}
+                width={20}
+                height={20}
+                priority
+                alt="menuIcon"
+              />
+              <ListItemTextST primary={menu.title} />
+            </ListItemButtonST>
           </ListItem>
         ))}
-      </List>
-    </Box>
+      </ListST>
+    </ListWrapper>
   );
 
   return (
     <Drawer
-      anchor={"right"}
+      anchor={"left"}
       open={open}
       onClose={(e: KeyboardEvent | MouseEvent) => {
         toggleDrawer(e);
         onClick(false);
       }}
-      transitionDuration={{ enter: 1500, exit: 1000 }}
+      transitionDuration={{ enter: 1000, exit: 1000 }}
     >
       {list()}
     </Drawer>
   );
 }
+
+const ListWrapper = styled(Box)(() => {
+  return {
+    gap: "8px",
+    width: 230,
+    display: "flex",
+    padding: "20px 16px",
+    flexDirection: "column",
+  };
+});
+
+const ImageWrapper = styled(Box)(() => {
+  return {
+    width: "100%",
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+  };
+});
+
+const ListItemTextST = styled(ListItemText)(() => {
+  return {
+    "& .MuiTypography-root": {
+      fontSize: "16px",
+    },
+  };
+});
+
+const ListItemButtonST = styled(ListItemButton)(() => {
+  return {
+    gap: "8px",
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+    "&.MuiListItemButton-root": {
+      padding: "8px 0px 8px 0px ",
+    },
+  };
+});
+
+const ListST = styled(List)(() => {
+  return {
+    gap: "4px",
+    display: "flex",
+    flexDirection: "column",
+  };
+});

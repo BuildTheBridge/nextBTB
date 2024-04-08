@@ -4,21 +4,22 @@ import { MouseEvent, useState } from "react";
 import { usePathname } from "next/navigation";
 import { useRouter } from "next/router";
 
-import useScroll from "@/lib/clients/hooks/useScroll";
 import useSize from "@/lib/clients/hooks/useSize";
 import BRIDGE from "@/public/images/icons/bridge.png";
 import { MAIN_POPOVER_MENUS } from "@/config";
 
 import HeaderPopover from "./components/HeaderPopover";
+import useScrollValue from "@/lib/clients/hooks/useScrollValue";
 
 interface IProps {
   path: string;
   onClick: (value: boolean) => void;
+  onMoveToElement: () => void;
 }
 
 export default function Header(props: IProps) {
-  const { onClick, path } = props;
-  const { scroll } = useScroll();
+  const { onClick, path, onMoveToElement } = props;
+  const { scroll } = useScrollValue();
   const { width } = useSize();
   const router = useRouter();
 
@@ -41,8 +42,18 @@ export default function Header(props: IProps) {
   const open = Boolean(anchorEl);
   const id = open ? "simple-popover" : undefined;
 
-  const testRouter = () => {
-    router.push("/academy");
+  const testRouter = (title: string) => {
+    if (title === "Home") {
+      window.scroll({
+        top: 0,
+        behavior: "smooth",
+      });
+      return;
+    }
+    if (title === "Contact") {
+      onMoveToElement();
+      return;
+    }
   };
 
   return (
@@ -73,7 +84,7 @@ export default function Header(props: IProps) {
                     color="#fff"
                     key={index}
                     sx={{ fontWeight: "bold" }}
-                    onClick={testRouter}
+                    onClick={() => testRouter(menu.title)}
                   >
                     {menu.title}
                   </Typography>
@@ -97,6 +108,7 @@ export default function Header(props: IProps) {
         id={id}
         anchorEl={anchorEl}
         path={path}
+        onMoveToElement={onMoveToElement}
         onClose={handleClose}
       />
     </Wrapper>
@@ -114,7 +126,7 @@ const Wrapper = styled(Box)<{ scroll: number; path: string }>(
       alignItems: "center",
       justifyContent: "center",
       backgroundColor: path === "/" ? "transparent" : "#fafafa",
-      backdropFilter: scroll > 0 ? "blur(30px)" : "",
+      backdropFilter: scroll > 0 ? "blur(70px)" : "",
     };
   }
 );

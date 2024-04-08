@@ -23,15 +23,14 @@ const TextFieldST = styled(TextField)(() => {
   return {
     width: "100%",
     "& .MuiOutlinedInput-root": {
-      fontSize: "14px",
-      lineHeight: "20px",
+      fontSize: "15px",
       borderRadius: "8px",
     },
     "& .MuiInputLabel-root": {
       fontSize: "14px",
     },
     "& .MuiOutlinedInput-input": {
-      padding: "15px 0px",
+      padding: "15px 8px",
     },
   };
 });
