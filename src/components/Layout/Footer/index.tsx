@@ -1,14 +1,10 @@
 import { Box, Typography, styled } from "@mui/material";
 
 import useResponsive from "@/lib/clients/hooks/useResponsive";
-interface IProps {
-  element: any;
-}
-export default function Footer(props: IProps) {
-  const { element } = props;
+export default function Footer() {
   const isXs = useResponsive("down", "xs");
   return (
-    <Wrapper ref={element}>
+    <Wrapper>
       <BoxSTcontent>
         <Typography variant="subtitle4" color="#706f6f" fontWeight={800}>
           빌더브릿지

@@ -4,6 +4,7 @@
   word-break: keep-all;
   font-family: SCDream;
   box-sizing: border-box;
+  -webkit-tap-highlight-color: transparent;
 }
 
 @font-face {

@@ -1,24 +1,25 @@
 import { Box, styled, Typography } from "@mui/material";
 import Image from "next/image";
-import { MouseEvent, useState } from "react";
-import { usePathname } from "next/navigation";
 import { useRouter } from "next/router";
+import { MouseEvent, useState } from "react";
 
+import { MAIN_POPOVER_MENUS } from "@/config";
 import useSize from "@/lib/clients/hooks/useSize";
 import BRIDGE from "@/public/images/icons/bridge.png";
-import { MAIN_POPOVER_MENUS } from "@/config";
 
-import HeaderPopover from "./components/HeaderPopover";
 import useScrollValue from "@/lib/clients/hooks/useScrollValue";
+import HeaderPopover from "./components/HeaderPopover";
 
 interface IProps {
   path: string;
   onClick: (value: boolean) => void;
   onMoveToElement: () => void;
+  handleClickOpen: () => void;
 }
 
 export default function Header(props: IProps) {
-  const { onClick, path, onMoveToElement } = props;
+  const { onClick, path, onMoveToElement, handleClickOpen } = props;
+
   const { scroll } = useScrollValue();
   const { width } = useSize();
   const router = useRouter();
@@ -31,6 +32,7 @@ export default function Header(props: IProps) {
     } else if (path !== "/") {
       onClick(true);
     } else {
+      handleClickOpen();
       console.log("걍로그인");
     }
   };

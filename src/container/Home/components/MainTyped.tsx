@@ -2,7 +2,12 @@ import { Box, Button, Typography, styled } from "@mui/material";
 import React from "react";
 import { ReactTyped } from "react-typed";
 
-const MainTyped = () => {
+interface IProps {
+  onMoveToElement: () => void;
+}
+
+const MainTyped = (props: IProps) => {
+  const { onMoveToElement } = props;
   return (
     <Wrapper>
       <Title>Build The Bridge</Title>
@@ -19,7 +24,9 @@ const MainTyped = () => {
         />
       </TypedCotent>
       <Subtitle>학원 성장 비밀 레시피</Subtitle>
-      <ButtonST variant="contained">문의하기</ButtonST>
+      <ButtonST variant="contained" onClick={onMoveToElement}>
+        문의하기
+      </ButtonST>
     </Wrapper>
   );
 };

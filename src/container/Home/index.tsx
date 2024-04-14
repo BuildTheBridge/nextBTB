@@ -3,11 +3,15 @@ import { Box, styled } from "@mui/material";
 import ContactUs from "./components/ContactUs";
 import LeftText from "./components/LeftText";
 import MainTyped from "./components/MainTyped";
-import { getMembers } from "@/server/clients/MemberApiClient";
-import { useQuery } from "@tanstack/react-query";
-import useMoveScroll from "@/lib/clients/hooks/useMoveScroll";
+import { Ref } from "react";
 
-export default function HomeContainer() {
+interface IProps {
+  element: Ref<undefined> | null;
+  onMoveToElement: () => void;
+}
+
+export default function HomeContainer(props: IProps) {
+  const { element, onMoveToElement } = props;
   // const { data: memberData } = useQuery({
   //   queryKey: ["members"],
   //   queryFn: async () => {
@@ -32,11 +36,11 @@ export default function HomeContainer() {
           background: 'url("/images/backGround/main-bg.png") no-repeat',
         }}
       >
-        <MainTyped />
+        <MainTyped onMoveToElement={onMoveToElement} />
         <ImgBackground src="/images/backGround/main-bg.png" alt="main-bg" />
       </Box>
 
-      <BoxSTcontent>
+      <BoxSTcontent ref={element}>
         {/* Contact Us */}
         <ContactUs />
         {/* static text */}
@@ -63,6 +67,7 @@ const BoxSTcontent = styled(Box)(({ theme }) => {
     maxWidth: "720px",
     minHeight: "450px",
     justifyContent: "center",
+    scrollMarginTop: "60px",
     [theme.breakpoints.down("sm")]: {
       minHeight: "600px",
       flexDirection: "column",

@@ -1,11 +1,17 @@
-import { ReactElement, cloneElement } from "react";
+import { ReactElement, Ref } from "react";
 
 import SEO from "@/SEO";
-import HomeContainer from "@/container/Home";
 import BaseLayout from "@/components/Layout/BaseLayout";
+import HomeContainer from "@/container/Home";
 
-export default function Home() {
-  return <HomeContainer />;
+interface IProps {
+  element: Ref<undefined> | null;
+  onMoveToElement: () => void;
+}
+
+export default function Home(props: IProps) {
+  const { element, onMoveToElement } = props;
+  return <HomeContainer element={element} onMoveToElement={onMoveToElement} />;
 }
 
 Home.getLayout = function getLayout(page: ReactElement) {

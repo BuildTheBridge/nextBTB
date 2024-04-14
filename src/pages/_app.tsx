@@ -1,3 +1,4 @@
+import useMoveScroll from "@/lib/clients/hooks/useMoveScroll";
 import "@/styles/globals.css";
 import theme from "@/theme";
 import { ThemeProvider, styled } from "@mui/material";

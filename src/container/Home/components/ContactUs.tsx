@@ -1,24 +1,22 @@
+import CommonTextField from "@/components/Common/CommonTextField";
 import { Box, Button, Typography, styled } from "@mui/material";
-import React from "react";
-
-import BTextField from "@/components/BTextField";
 
 export default function ContactUs() {
   return (
     <BoxSTinput>
       <TypographySThead variant="h1">Contact Us</TypographySThead>
       <BoxST>
-        <BTextField id="outlined-basic" label="상호명" />
-        <BTextField id="outlined-basic" label="이름" />
+        <CommonTextField id="outlined-basic" label="상호명" />
+        <CommonTextField id="outlined-basic" label="이름" />
       </BoxST>
       <Box sx={{ width: "100%" }}>
-        <BTextField id="outlined-basic" label="주소" />
+        <CommonTextField id="outlined-basic" label="주소" />
       </Box>
       <Box sx={{ width: "100%" }}>
-        <BTextField id="outlined-basic" label="문의사항을 입력해 주세요" />
+        <CommonTextField id="outlined-basic" label="문의사항을 입력해 주세요" />
       </Box>
       <BoxST>
-        <BTextField id="outlined-basic" label="연락처를 기입해주세요" />
+        <CommonTextField id="outlined-basic" label="연락처를 기입해주세요" />
         <ButtonST variant="contained">제출</ButtonST>
       </BoxST>
     </BoxSTinput>

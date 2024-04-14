@@ -7,35 +7,16 @@ import Footer from "./Footer";
 import Header from "./Header";
 import Sidebar from "./Sidebar";
 import useMoveScroll from "@/lib/clients/hooks/useMoveScroll";
+import LoginDialog from "../LoginDialog";
 
 interface IProps {
   children: React.ReactNode;
 }
 
-export default function BaseLayout({ children }: IProps) {
-  // 로딩 관련 global atom
-  // const [loading, setLoading] = useRecoilState(loadingState);
+export default function BaseLayout(props: IProps) {
+  const { children } = props;
+
   const path = usePathname();
-
-  // 로딩상태 체크 useEffect
-  // useEffect(() => {
-  //   const startLoading = () => {
-  //     setLoading(true);
-  //   };
-  //   const endLoading = () => {
-  //     setLoading(false);
-  //   };
-
-  //   Router.events.on("routeChangeStart", startLoading);
-  //   Router.events.on("routeChangeComplete", endLoading);
-  //   Router.events.on("routeChangeError", endLoading);
-
-  //   return () => {
-  //     Router.events.off("routeChangeStart", startLoading);
-  //     Router.events.off("routeChangeComplete", endLoading);
-  //     Router.events.off("routeChangeError", endLoading);
-  //   };
-  // }, [setLoading]);
 
   const { element, onMoveToElement } = useMoveScroll();
 
@@ -45,21 +26,39 @@ export default function BaseLayout({ children }: IProps) {
     setOpenSidebar(value);
   };
 
+  const [open, setOpen] = React.useState(false);
+
+  const handleClickOpen = () => {
+    setOpen(true);
+  };
+  const handleClose = () => {
+    setOpen(false);
+  };
+
   return (
     <Box>
       <Header
         onClick={(value: boolean) => toggleDrawer(value)}
         path={path}
         onMoveToElement={onMoveToElement}
+        handleClickOpen={() => setOpen(true)}
       />
       <BoxSTchildren path={path}>
-        {path === "/" ? children : <ContentLayout>{children}</ContentLayout>}
+        {path === "/" ? (
+          React.Children.map(children, (child: any) =>
+            React.cloneElement(child, { element, onMoveToElement })
+          )
+        ) : (
+          <ContentLayout>{children}</ContentLayout>
+        )}
       </BoxSTchildren>
-      <Footer element={element} />
+      <Footer />
       <Sidebar
         onClick={(value: boolean) => toggleDrawer(value)}
         open={openSidebar}
       />
+
+      <LoginDialog open={open} handleClose={handleClose} />
     </Box>
   );
 }

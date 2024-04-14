@@ -7,7 +7,7 @@ interface IProps {
   placeHolder?: string;
 }
 
-export default function BTextField(props: IProps) {
+export default function CommonTextField(props: IProps) {
   const { label, id, placeHolder } = props;
   return (
     <TextFieldST
