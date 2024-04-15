@@ -1,10 +1,22 @@
 import { Box, Tab, Tabs, styled } from "@mui/material";
 import React, { useState } from "react";
-import IdFind from "./components/idFind";
+import IdFind from "./components/IdFind";
 import PasswordFind from "./components/PasswordFind";
+import { useMutation } from "@tanstack/react-query";
+import { sendMailer } from "@/server/clients/SendMailApiClient";
 
 export default function FindAccountContainer() {
   const [tab, setTab] = useState("id");
+
+  const gogo = useMutation({
+    mutationKey: ["members"],
+    mutationFn: async () => {
+      const res = await sendMailer({ MB_EML_ADDR: "frontendtt@gmail.com" });
+      console.log(res);
+
+      return res;
+    },
+  });
   return (
     <Wrapper>
       <Content>
@@ -15,15 +27,12 @@ export default function FindAccountContainer() {
           sx={{
             width: "100%",
             maxWidth: "320px",
-            position: "absolute",
-            top: 0,
-            left: "33.3%",
-            marginLeft: "-50px",
           }}
         >
           <Tab
             label="계정 찾기"
             value="id"
+            onClick={() => gogo.mutate()}
             sx={{ width: "50%", maxWidth: "200px", wordBreak: "keep-all" }}
           />
           <Tab
@@ -44,6 +53,7 @@ const Wrapper = styled(Box)(() => {
     width: "100%",
     display: "flex",
     minHeight: "100vh",
+    backgroundColor: "#fafafa",
   };
 });
 
@@ -58,6 +68,9 @@ const Content = styled(Box)(() => {
     alignItems: "center",
     flexDirection: "column",
     justifyContent: "center",
+    padding: "40px 24px",
     position: "relative",
+    borderRadius: "24px",
+    boxShadow: "0px 0px 10px #dbd8d8",
   };
 });

@@ -1,20 +1,23 @@
-import { TextField, styled } from "@mui/material";
+import { Theme } from "@mui/material";
+import { SxProps, TextField, styled } from "@mui/material";
 import React from "react";
 
 interface IProps {
   id?: string;
   label?: string;
   placeHolder?: string;
+  sx?: SxProps<Theme>;
 }
 
 export default function CommonTextField(props: IProps) {
-  const { label, id, placeHolder } = props;
+  const { label, id, placeHolder, sx } = props;
   return (
     <TextFieldST
       variant="outlined"
       id={id}
       label={label}
       placeholder={placeHolder}
+      sx={{ ...sx }}
     />
   );
 }

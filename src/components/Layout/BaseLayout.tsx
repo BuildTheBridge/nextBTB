@@ -26,14 +26,7 @@ export default function BaseLayout(props: IProps) {
     setOpenSidebar(value);
   };
 
-  const [open, setOpen] = React.useState(false);
-
-  const handleClickOpen = () => {
-    setOpen(true);
-  };
-  const handleClose = () => {
-    setOpen(false);
-  };
+  const [open, setOpen] = useState(false);
 
   return (
     <Box>
@@ -58,7 +51,7 @@ export default function BaseLayout(props: IProps) {
         open={openSidebar}
       />
 
-      <LoginDialog open={open} handleClose={handleClose} />
+      <LoginDialog open={open} handleClose={() => setOpen(false)} />
     </Box>
   );
 }
