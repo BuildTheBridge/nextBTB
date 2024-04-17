@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import IdFind from "./components/IdFind";
 import PasswordFind from "./components/PasswordFind";
 import { useMutation } from "@tanstack/react-query";
-import { sendMailer } from "@/server/clients/SendMailApiClient";
+import MailApiClient from "@/server/clients/MailApiClient";
 
 export default function FindAccountContainer() {
   const [tab, setTab] = useState("id");
@@ -11,9 +11,9 @@ export default function FindAccountContainer() {
   const gogo = useMutation({
     mutationKey: ["members"],
     mutationFn: async () => {
-      const res = await sendMailer({ MB_EML_ADDR: "frontendtt@gmail.com" });
-      console.log(res);
-
+      const res = await MailApiClient.getInstance().sendMemberMail({
+        MB_EML_ADDR: "frontendtt@gmail.com",
+      });
       return res;
     },
   });

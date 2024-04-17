@@ -4,6 +4,8 @@ import ContactUs from "./components/ContactUs";
 import LeftText from "./components/LeftText";
 import MainTyped from "./components/MainTyped";
 import { Ref } from "react";
+import MemberApiClient from "@/server/clients/MemberApiClient";
+import { useQuery } from "@tanstack/react-query";
 
 interface IProps {
   element: Ref<undefined> | null;
@@ -12,15 +14,16 @@ interface IProps {
 
 export default function HomeContainer(props: IProps) {
   const { element, onMoveToElement } = props;
-  // const { data: memberData } = useQuery({
-  //   queryKey: ["members"],
-  //   queryFn: async () => {
-  //     const res = await getMembers({ re: "good" });
-  //     console.log(res);
+  const { data: memberData } = useQuery({
+    queryKey: ["members"],
+    queryFn: async () => {
+      const res = await MemberApiClient.getInstance().readMember();
+      console.log(res);
 
-  //     return res;
-  //   },
-  // });
+      return res;
+    },
+  });
+  console.log(memberData);
 
   return (
     <Wrapper>

@@ -1,7 +1,25 @@
 import CommonTextField from "@/components/Common/CommonTextField";
+import SendMailApiClient from "@/server/clients/MailApiClient";
 import { Box, Button, Typography, styled } from "@mui/material";
+import { useMutation } from "@tanstack/react-query";
 
 export default function ContactUs() {
+  const gogo = useMutation({
+    mutationKey: ["contact-us"],
+    mutationFn: async () => {
+      const res = await SendMailApiClient.getInstance().sendContactUsMail({
+        emailAddr: "frontendtt@gmail.com",
+        name: "park",
+        addr: "경기도",
+        businessName: "ㅎㅎ",
+        content: "ㅎㅇㅎㅇ",
+        phoneNum: "1234",
+      });
+
+      return res;
+    },
+  });
+
   return (
     <BoxSTinput>
       <TypographySThead variant="h1">Contact Us</TypographySThead>
@@ -17,7 +35,9 @@ export default function ContactUs() {
       </Box>
       <BoxST>
         <CommonTextField id="outlined-basic" label="연락처를 기입해주세요" />
-        <ButtonST variant="contained">제출</ButtonST>
+        <ButtonST variant="contained" onClick={() => gogo.mutate()}>
+          제출
+        </ButtonST>
       </BoxST>
     </BoxSTinput>
   );

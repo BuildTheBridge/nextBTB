@@ -5,11 +5,14 @@ export interface ICommonResponse<T> {
 }
 
 export const CommonResponse = {
-  //공통
+  // 공통
   SUCCESS: { code: 1, message: "Success" },
-  FAILED: { code: 2, message: "Failed By Server Error" },
+  FAILED: { code: 0, message: "Failed By Server Error" },
   PARAMETER_INVALID: { code: 3, message: "Invalid Parameter" },
   UNAUTHORIZED: { code: 4, message: "Unathorized" },
+
+  // 메일
+  SEND_MAIL_FAIL: { code: 0, massage: "Send Mail Fail Error" },
 
   // Academy
   // Build

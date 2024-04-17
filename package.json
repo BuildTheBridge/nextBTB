@@ -27,7 +27,8 @@
     "react-dom": "^18",
     "react-toastify": "^10.0.4",
     "react-typed": "^2.0.12",
-    "recoil": "^0.7.7"
+    "recoil": "^0.7.7",
+    "zod": "^3.22.4"
   },
   "devDependencies": {
     "@svgr/webpack": "^8.1.0",
