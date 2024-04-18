@@ -61,7 +61,12 @@ export default function Sidebar(props: IProps) {
       <ListST>
         {MENUS.map((menu, index) => (
           <ListItem key={index} disablePadding>
-            <ListItemButtonST onClick={() => router.push(menu.path)}>
+            <ListItemButtonST
+              onClick={() => {
+                router.push(menu.path);
+                onClick(false);
+              }}
+            >
               <Image
                 src={menu.imgUrl}
                 width={20}

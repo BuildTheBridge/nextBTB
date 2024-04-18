@@ -21,14 +21,15 @@ export default function Header(props: IProps) {
   const { onClick, path, onMoveToElement, handleClickOpen } = props;
 
   const { scroll } = useScrollValue();
+
   const { width } = useSize();
   const router = useRouter();
 
   const [anchorEl, setAnchorEl] = useState<HTMLButtonElement | null>(null);
 
-  const onClickLoginBtn = (event: MouseEvent<HTMLButtonElement>) => {
+  const onClickLoginBtn = (event: any) => {
     if (width < 600 && path === "/") {
-      setAnchorEl(event.currentTarget);
+      setAnchorEl(event?.currentTarget);
     } else if (path !== "/") {
       onClick(true);
     } else {
@@ -64,7 +65,7 @@ export default function Header(props: IProps) {
         {/* 헤더 로고 img */}
         <Image
           src={
-            path === "/"
+            path === "/" && scroll <= 0
               ? `/images/logos/white-hr.png`
               : `/images/logos/blue-hr.png`
           }
@@ -83,7 +84,7 @@ export default function Header(props: IProps) {
                 return (
                   <Typography
                     variant="subtitle3_long"
-                    color="#fff"
+                    color={scroll > 1 ? "#004bd4" : "#fff"}
                     key={index}
                     sx={{ fontWeight: "bold" }}
                     onClick={() => testRouter(menu.title)}
@@ -100,7 +101,7 @@ export default function Header(props: IProps) {
             alt="loginbtn"
             width={42}
             height={42}
-            onClick={(e: any) => onClickLoginBtn(e)}
+            onClick={onClickLoginBtn}
           />
         </Menus>
       </Content>
@@ -127,8 +128,8 @@ const Wrapper = styled(Box)<{ scroll: number; path: string }>(
       position: "fixed",
       alignItems: "center",
       justifyContent: "center",
-      backgroundColor: path === "/" ? "transparent" : "#fafafa",
-      backdropFilter: scroll > 0 ? "blur(70px)" : "",
+      backgroundColor: scroll > 1 ? "#fff" : "transparent",
+      transition: "background-color 0.3s ease-in-out",
     };
   }
 );
@@ -139,8 +140,8 @@ const Content = styled(Box)(() => {
     display: "flex",
     maxWidth: "960px",
     alignItems: "center",
-    justifyContent: "space-between",
     padding: "10px 24px",
+    justifyContent: "space-between",
   };
 });
 

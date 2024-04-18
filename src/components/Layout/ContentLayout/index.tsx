@@ -1,8 +1,7 @@
-import useKorPath from "@/lib/clients/hooks/usePathname";
+import useKorPath from "@/lib/clients/hooks/useKorPath";
 import { Box, styled } from "@mui/material";
 import { ReactNode } from "react";
 import InputWithBtn from "./components/InputWithBtn";
-import { usePathname } from "next/navigation";
 
 interface IProps {
   children: ReactNode;

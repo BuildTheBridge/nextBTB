@@ -8,7 +8,7 @@ import MemberApiClient from "@/server/clients/MemberApiClient";
 import { useQuery } from "@tanstack/react-query";
 
 interface IProps {
-  element: Ref<undefined> | null;
+  element: Ref<HTMLElement>;
   onMoveToElement: () => void;
 }
 
@@ -21,7 +21,6 @@ export default function HomeContainer(props: IProps) {
       return res;
     },
   });
-  console.log("testcommit");
 
   return (
     <Wrapper>

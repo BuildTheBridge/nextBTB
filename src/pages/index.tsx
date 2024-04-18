@@ -5,7 +5,7 @@ import BaseLayout from "@/components/Layout/BaseLayout";
 import HomeContainer from "@/container/Home";
 
 interface IProps {
-  element: Ref<undefined> | null;
+  element: Ref<HTMLElement>;
   onMoveToElement: () => void;
 }
 

@@ -1,21 +1,26 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useCallback, useMemo } from "react";
 
 export default function useScrollValue() {
   const [scroll, setScroll] = useState(0);
   const [lastScroll, setLastScroll] = useState(0);
 
-  useEffect(() => {
-    const handleScroll = () => {
-      setLastScroll(scroll);
-      setScroll(window.scrollY);
-    };
+  const handleScroll = useCallback(() => {
+    setLastScroll(scroll);
+    setScroll(window.scrollY);
+  }, [scroll]);
 
+  useEffect(() => {
     window.addEventListener("scroll", handleScroll);
 
     return () => {
       window.removeEventListener("scroll", handleScroll);
     };
-  }, [scroll]);
+  }, [handleScroll]);
 
-  return { scroll, lastScroll };
+  const scrollValue = useMemo(
+    () => ({ scroll, lastScroll }),
+    [scroll, lastScroll]
+  );
+
+  return scrollValue;
 }

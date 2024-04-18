@@ -2,12 +2,6 @@ import { IMemberData } from "../services/member/MemberService";
 import { ICommonResponse } from "../services/types";
 import BaseApiClient from "./BaseApiClient";
 
-// export const getMembers = async (request: any) => {
-//   const response = await axios.request<ICommonResponse<any[]>>({
-//   });
-//   return response;
-// };
-
 class MemberApiClient extends BaseApiClient {
   private static instance: MemberApiClient;
 

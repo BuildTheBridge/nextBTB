@@ -1,5 +1,5 @@
 import { Box, styled } from "@mui/material";
-import React, { useState } from "react";
+import React, { ReactElement, useState } from "react";
 
 import { usePathname } from "next/navigation";
 import ContentLayout from "./ContentLayout";
@@ -21,12 +21,11 @@ export default function BaseLayout(props: IProps) {
   const { element, onMoveToElement } = useMoveScroll();
 
   const [openSidebar, setOpenSidebar] = useState(false);
+  const [open, setOpen] = useState(false);
 
   const toggleDrawer = (value: boolean) => {
     setOpenSidebar(value);
   };
-
-  const [open, setOpen] = useState(false);
 
   return (
     <Box>
@@ -38,8 +37,11 @@ export default function BaseLayout(props: IProps) {
       />
       <BoxSTchildren path={path}>
         {path === "/" ? (
-          React.Children.map(children, (child: any) =>
-            React.cloneElement(child, { element, onMoveToElement })
+          React.Children.map(children, (child) =>
+            React.cloneElement(child as ReactElement, {
+              element,
+              onMoveToElement,
+            })
           )
         ) : (
           <ContentLayout>{children}</ContentLayout>

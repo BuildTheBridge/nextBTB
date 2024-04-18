@@ -1,5 +1,5 @@
 import { colors as defaultColor } from "@mui/material";
-const colors: any = {
+const colors = {
   ...defaultColor,
   aqua: {
     50: "#EBFAFF",
