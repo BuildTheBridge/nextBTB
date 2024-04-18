@@ -11,4 +11,15 @@ const dbConfig: ConnectionOptions = {
 
 const connection = mysql.createConnection(dbConfig);
 
-export default connection;
+const connectionFn = (query: string, params?: any[]) => {
+  return new Promise((resolve, reject) => {
+    connection.query(query, params, (error, results) => {
+      if (error) {
+        return reject(error);
+      }
+      resolve(results);
+    });
+  });
+};
+
+export default connectionFn;

@@ -1,17 +1,14 @@
+import { sendContactUsMailFn, sendMemberMailFn } from "@/lib/clients/utils";
+import connectionFn from "@/lib/server/db";
 import { CommonResponse } from "@/server/services/types";
 import { z } from "zod";
-import { ICommonResponse } from "../types";
-import connection from "@/lib/server/db";
 import { CHECK_AVAILABLE_MEMBER } from "../queries";
-import { sendContactUsMailFn, sendMemberMailFn } from "@/lib/clients/utils";
-
-// interface IMemeberMailRequest {
-//   MB_EML_ADDR: string;
-// }
+import { ICommonResponse } from "../types";
 
 const memberMailRequestSchema = z.object({
   MB_EML_ADDR: z.string({ required_error: "user email 값이 없습니다." }),
 });
+
 const contactUsMailRequestSchema = z.object({
   emailAddr: z.string({ required_error: "email 값이 없습니다." }),
   name: z.string({ required_error: "name 값이 없습니다." }),
@@ -22,50 +19,8 @@ const contactUsMailRequestSchema = z.object({
 });
 
 export type MemberMailRequest = z.infer<typeof memberMailRequestSchema>;
+
 export type ContactUsRequest = z.infer<typeof contactUsMailRequestSchema>;
-
-// interface IContactUs {
-//   emailAddr: string;
-//   name: string;
-//   addr: string;
-//   content: string;
-//   phoneNum: string;
-//   businessName: string;
-// }
-
-// // 사용자에게 고정된 text의 이메일만 전송
-// export const sendMemberMailService = (request: IRequest) => {
-//   const { MB_EML_ADDR, content, title } = request;
-
-//   // 사용자의 email이 DB에 있는 경우에만 전송
-//   connection.query(CHECK_AVAILABLE_MEMBER, [MB_EML_ADDR], (err, result) => {
-//     if (err) {
-//       console.log(err);
-//       return err;
-//     } else {
-//       if (result) {
-//         sendEmail({
-//           mailType: "Member",
-//           from: "frontendtt@gmail.com",
-//           title: title!,
-//           message: content!,
-//         });
-//         return result;
-//       } else return "no";
-//     }
-//   });
-// };
-
-// export const sendContactUsMailService = (request: IContactUs) => {
-//   const { addr, businessName, content, emailAddr, name, phoneNum } = request;
-
-//   sendEmail({
-//     mailType: "ContactUs",
-//     from: "frontendtt@gmail.com",
-//     title: `${name}로 부터 문의 사항 도착했다 세훈아`,
-//     message: content!,
-//   });
-// };
 
 class MailService {
   private static instance: MailService;
@@ -91,23 +46,21 @@ class MailService {
 
     const { MB_EML_ADDR } = request;
 
-    connection.query(CHECK_AVAILABLE_MEMBER, [MB_EML_ADDR], (err, result) => {
-      if (err) {
-        console.log("member-mail-send ", err);
-        return err;
-      } else {
-        if (result) {
-          sendMemberMailFn({
-            MB_EML_ADDR,
-          });
-          return result;
-        }
-      }
-    });
+    const res = await connectionFn(CHECK_AVAILABLE_MEMBER, [MB_EML_ADDR]);
+
+    if (res) {
+      sendMemberMailFn({
+        MB_EML_ADDR,
+      });
+      return {
+        ...CommonResponse.SUCCESS,
+        message: "멤버 메일 전송 success",
+      };
+    }
 
     return {
       ...CommonResponse.SEND_MAIL_FAIL,
-      message: "멤버 메일 전송 실패",
+      message: "멤버 메일 전송 fail",
     };
   };
 

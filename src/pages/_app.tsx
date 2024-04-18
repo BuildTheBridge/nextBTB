@@ -1,4 +1,3 @@
-import useMoveScroll from "@/lib/clients/hooks/useMoveScroll";
 import "@/styles/globals.css";
 import theme from "@/theme";
 import { ThemeProvider, styled } from "@mui/material";
@@ -54,7 +53,7 @@ export default function BtbApp(props: AppPropsWithLayout) {
           </Head>
           <main>
             {getLayout(<Component {...pageProps} />)}
-            {/* <ReactQueryDevtools initialIsOpen={false} position={"left"} /> */}
+            <ReactQueryDevtools initialIsOpen={false} position={"left"} />
             <ToastST
               position="top-right"
               hideProgressBar

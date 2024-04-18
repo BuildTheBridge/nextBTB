@@ -18,12 +18,9 @@ export default function HomeContainer(props: IProps) {
     queryKey: ["members"],
     queryFn: async () => {
       const res = await MemberApiClient.getInstance().readMember();
-      console.log(res);
-
       return res;
     },
   });
-  console.log(memberData);
 
   return (
     <Wrapper>

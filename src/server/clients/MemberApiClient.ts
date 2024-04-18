@@ -1,3 +1,4 @@
+import { IMemberData } from "../services/member/MemberService";
 import { ICommonResponse } from "../services/types";
 import BaseApiClient from "./BaseApiClient";
 
@@ -18,8 +19,8 @@ class MemberApiClient extends BaseApiClient {
   }
 
   public readMember = () => {
-    return this.axios.request<ICommonResponse<null>>({
-      method: "POST",
+    return this.axios.request<ICommonResponse<IMemberData[]>>({
+      method: "GET",
       url: "/api/member/read",
     });
   };

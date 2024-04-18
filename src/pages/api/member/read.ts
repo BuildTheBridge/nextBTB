@@ -8,7 +8,6 @@ export default async function handler(
   res: NextApiResponse
 ) {
   const thisResult = await MemberService.getInstance().getMember();
-
   if (thisResult) {
     return res.status(200).json(thisResult);
   } else {
