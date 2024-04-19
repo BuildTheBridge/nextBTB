@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import IdFind from "./components/IdFind";
 import PasswordFind from "./components/PasswordFind";
 import { useMutation } from "@tanstack/react-query";
-import MailApiClient from "@/server/clients/MailApiClient";
+import MailApiClient from "@/clients/MailApiClient";
 
 export default function FindAccountContainer() {
   const [tab, setTab] = useState("id");

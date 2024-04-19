@@ -1,8 +1,8 @@
 import {
   ContactUsRequest,
   MemberMailRequest,
-} from "../services/mail/MailService";
-import { ICommonResponse } from "../services/types";
+} from "../server/services/mail/MailService";
+import { ICommonResponse } from "../server/services/types";
 import BaseApiClient from "./BaseApiClient";
 
 class MailApiClient extends BaseApiClient {

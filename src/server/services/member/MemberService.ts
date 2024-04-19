@@ -1,6 +1,7 @@
 import connectionFn from "@/lib/server/db";
 import { CommonResponse } from "@/server/services/types";
-import { SELECT_MEMBER } from "../queries";
+
+import { SELECT_MEMBER } from "../../queries/MemberQueries";
 import { ICommonResponse } from "../types";
 
 export interface IMemberData {

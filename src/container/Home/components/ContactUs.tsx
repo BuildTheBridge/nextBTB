@@ -1,5 +1,5 @@
 import CommonTextField from "@/components/Common/CommonTextField";
-import SendMailApiClient from "@/server/clients/MailApiClient";
+import SendMailApiClient from "@/clients/MailApiClient";
 import { Box, Button, Typography, styled } from "@mui/material";
 import { useMutation } from "@tanstack/react-query";
 

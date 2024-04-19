@@ -4,7 +4,7 @@ import ContactUs from "./components/ContactUs";
 import LeftText from "./components/LeftText";
 import MainTyped from "./components/MainTyped";
 import { Ref } from "react";
-import MemberApiClient from "@/server/clients/MemberApiClient";
+import MemberApiClient from "@/clients/MemberApiClient";
 import { useQuery } from "@tanstack/react-query";
 
 interface IProps {

@@ -2,7 +2,7 @@ import { sendContactUsMailFn, sendMemberMailFn } from "@/lib/clients/utils";
 import connectionFn from "@/lib/server/db";
 import { CommonResponse } from "@/server/services/types";
 import { z } from "zod";
-import { CHECK_AVAILABLE_MEMBER } from "../queries";
+import { CHECK_AVAILABLE_MEMBER } from "../../queries/MemberQueries";
 import { ICommonResponse } from "../types";
 
 const memberMailRequestSchema = z.object({

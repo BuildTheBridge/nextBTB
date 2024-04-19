@@ -1,5 +1,5 @@
-import { IMemberData } from "../services/member/MemberService";
-import { ICommonResponse } from "../services/types";
+import { IMemberData } from "../server/services/member/MemberService";
+import { ICommonResponse } from "../server/services/types";
 import BaseApiClient from "./BaseApiClient";
 
 class MemberApiClient extends BaseApiClient {

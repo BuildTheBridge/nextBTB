@@ -6,20 +6,21 @@ import DialogContent from "@mui/material/DialogContent";
 import IconButton from "@mui/material/IconButton";
 import Typography from "@mui/material/Typography";
 import { styled } from "@mui/material/styles";
-import Image from "next/image";
-
-import WHITE_LOGO from "@/public/images/logos/white.png";
 import { Box } from "@mui/material";
 import { useState } from "react";
+import Image from "next/image";
+import { useRouter } from "next/router";
+
 import CommonTextField from "../Common/CommonTextField";
 import CommonCheckBox from "../Common/CommonCheckBox";
-import { useRouter } from "next/router";
+
+import WHITE_LOGO from "@/public/images/logos/white.png";
 
 interface IProps {
   open: boolean;
   handleClose: () => void;
 }
-// MuiDialog-container MuiDialog-scrollPaper css-hz1bth-MuiDialog-container
+
 export default function LoginDialog(props: IProps) {
   const { open, handleClose } = props;
   const router = useRouter();
